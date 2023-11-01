@@ -27,7 +27,7 @@ export const App = () => {
             </Stack>
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Stack>
+            <Stack spacing={4}>
               <Box>
                 <CurrentWeather />
               </Box>

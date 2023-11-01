@@ -1,6 +1,7 @@
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { SearchForm } from "./components/SearchForm";
 
 export const App = () => {
   return (
@@ -17,7 +18,9 @@ export const App = () => {
             sx={{ border: "1px solid blue" }}
           >
             <Stack>
-              <Box sx={{ border: "1px solid red" }}>Search Form</Box>
+              <Box sx={{ border: "1px solid red" }}>
+                <SearchForm />
+              </Box>
               <Box sx={{ border: "1px solid red" }}>Recent Searches</Box>
             </Stack>
           </Grid>

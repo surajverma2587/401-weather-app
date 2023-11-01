@@ -1,40 +1,30 @@
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { SearchForm } from "./components/SearchForm";
+import { RecentSearches } from "./components/RecentSearches";
 
 export const App = () => {
   return (
-    <Stack sx={{ border: "1px solid red" }}>
-      <Box sx={{ border: "1px solid green" }}>Banner</Box>
-      <Box sx={{ border: "1px solid green" }}>
+    <Stack>
+      <Box>Banner</Box>
+      <Box>
         <Grid container>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={3}
-            lg={4}
-            sx={{ border: "1px solid blue" }}
-          >
-            <Stack>
-              <Box sx={{ border: "1px solid red" }}>
+          <Grid item xs={12} sm={12} md={3} lg={4} sx={{ px: 1 }}>
+            <Stack spacing={3}>
+              <Paper elevation={3}>
                 <SearchForm />
-              </Box>
-              <Box sx={{ border: "1px solid red" }}>Recent Searches</Box>
+              </Paper>
+              <Paper elevation={3}>
+                <RecentSearches />
+              </Paper>
             </Stack>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={9}
-            lg={8}
-            sx={{ border: "1px solid blue" }}
-          >
+          <Grid item xs={12} sm={12} md={9} lg={8} sx={{ px: 1 }}>
             <Stack>
-              <Box sx={{ border: "1px solid red" }}>Current Weather</Box>
-              <Box sx={{ border: "1px solid red" }}>Forecast Weather</Box>
+              <Box>Current Weather</Box>
+              <Box>Forecast Weather</Box>
             </Stack>
           </Grid>
         </Grid>

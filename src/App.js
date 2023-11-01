@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Stack sx={{ border: "1px solid red" }}>
+      <Box sx={{ border: "1px solid green" }}>Banner</Box>
+      <Box sx={{ border: "1px solid green" }}>
+        <Grid container>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={3}
+            lg={4}
+            sx={{ border: "1px solid blue" }}
+          >
+            <Stack>
+              <Box sx={{ border: "1px solid red" }}>Search Form</Box>
+              <Box sx={{ border: "1px solid red" }}>Recent Searches</Box>
+            </Stack>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={9}
+            lg={8}
+            sx={{ border: "1px solid blue" }}
+          >
+            <Stack>
+              <Box sx={{ border: "1px solid red" }}>Current Weather</Box>
+              <Box sx={{ border: "1px solid red" }}>Forecast Weather</Box>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Box>
+    </Stack>
   );
-}
-
-export default App;
+};

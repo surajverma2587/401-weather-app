@@ -18,6 +18,13 @@ export const App = () => {
   const [currentWeatherIsLoading, setCurrentWeatherIsLoading] = useState(false);
   const [currentWeatherError, setCurrentWeatherError] = useState(false);
 
+  const [lat, setLat] = useState("");
+  const [lon, setLon] = useState("");
+  const [forecastWeatherData, setForecastWeatherData] = useState();
+  const [forecastWeatherIsLoading, setForecastWeatherIsLoading] =
+    useState(false);
+  const [forecastWeatherError, setForecastWeatherError] = useState(false);
+
   const onSuccess = (cityName) => {
     setCity(cityName);
   };
@@ -30,6 +37,10 @@ export const App = () => {
           setCurrentWeatherError(false);
           setCurrentWeatherData();
 
+          setForecastWeatherIsLoading(true);
+          setForecastWeatherError(false);
+          setForecastWeatherData();
+
           const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=8109f605d79877f7488a194794a29013`;
 
           const response = await axios.get(url);
@@ -40,6 +51,9 @@ export const App = () => {
           } else {
             setCurrentWeatherData(response.data);
             setCurrentWeatherError(false);
+
+            setLat(response.data.coord.lat);
+            setLon(response.data.coord.lon);
           }
 
           setCurrentWeatherIsLoading(false);
@@ -55,6 +69,42 @@ export const App = () => {
       fetchData();
     }
   }, [city]);
+
+  useEffect(() => {
+    if (lat && lon) {
+      const fetchData = async () => {
+        try {
+          setForecastWeatherIsLoading(true);
+          setForecastWeatherError(false);
+          setForecastWeatherData();
+
+          const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly&appid=8109f605d79877f7488a194794a29013`;
+
+          const response = await axios.get(url);
+
+          if (response.status !== 200) {
+            setForecastWeatherData();
+            setForecastWeatherError(true);
+          } else {
+            setForecastWeatherData(response.data);
+            setForecastWeatherError(false);
+          }
+
+          setForecastWeatherIsLoading(false);
+        } catch (error) {
+          console.log(error.message);
+
+          setForecastWeatherError(true);
+          setForecastWeatherData();
+          setForecastWeatherIsLoading(false);
+        }
+      };
+
+      fetchData();
+    }
+  }, [lat, lon]);
+
+  console.log(forecastWeatherData);
 
   return (
     <Stack spacing={2} sx={{ px: 1 }}>
@@ -85,7 +135,13 @@ export const App = () => {
                 )}
               </Box>
               <Box>
-                <ForecastWeather />
+                {forecastWeatherIsLoading && <div>Loading...</div>}
+                {forecastWeatherData && <ForecastWeather />}
+                {forecastWeatherError && (
+                  <Alert severity="error">
+                    Failed to retrieve forecast weather info for {city}
+                  </Alert>
+                )}
               </Box>
             </Stack>
           </Grid>
